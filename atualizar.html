@@ -32,7 +32,19 @@
       </form>
     </section>
   </div>
+<script>
+  const logado = localStorage.getItem("logado");
+  if (logado !== "true") {
+    window.location.href = "login.html";
+  }
 
+  function sair() {
+    if (confirm("Deseja realmente sair do painel?")) {
+      localStorage.removeItem("logado");
+      window.location.href = "login.html";
+    }
+  }
+</script>
   <footer>&copy; 2025 Smart Bite Admin Pro</footer>
 </body>
 </html>
