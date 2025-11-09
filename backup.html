@@ -1,60 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Backup - Smart Bite Admin Pro</title>
-  <link rel="stylesheet" href="CSS/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backup - Smart Bite Admin Pro</title>
+<link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-  <nav>
-    <div class="logo">Smart Bite Admin Pro</div>
-    <ul>
-      <li><a href="index.html">Início</a></li>
-      <li><a href="atualizar.html">Atualizar</a></li>
-      <li><a href="backup.html" class="active">Backup</a></li>
-      <li><a href="logs.html">Logs</a></li>
-      <li><a href="manutencao.html">Manutenção</a></li>
-      <li><a href="admins.html">Admins</a></li>
-      <li><a href="status.html">Status</a></li>
-      <li><a href="config.html">Config</a></li>
-    </ul>
-  </nav>
+<nav>
+  <div class="logo">Smart Bite Admin Pro</div>
+  <ul>
+    <li><a href="index.html">Início</a></li>
+    <li><a href="atualizar.html">Atualizar</a></li>
+    <li><a href="backup.html" class="active">Backup</a></li>
+    <li><a href="logs.html">Logs</a></li>
+    <li><a href="manutencao.html">Manutenção</a></li>
+    <li><a href="admins.html">Admins</a></li>
+    <li><a href="status.html">Status</a></li>
+    <li><a href="config.html">Config</a></li>
+  </ul>
+  <button class="logout-btn" onclick="sair()">Sair</button>
+</nav>
 
-  <div class="page-content">
-    <h1>Backup do Sistema</h1>
-    <section>
-      <p>Crie e restaure backups completos do sistema.</p>
-      <div class="card-grid">
-        <div class="card">
-          <h3>Criar Backup</h3>
-          <button>Criar Agora</button>
-        </div>
-        <div class="card">
-          <h3>Restaurar Backup</h3>
-          <form>
-            <input type="file" accept=".zip">
-            <button>Restaurar</button>
-          </form>
-        </div>
-      </div>
-    </section>
-  </div>
+<div class="page-content">
+  <h1>Backups do Sistema</h1>
+  <p>Criar ou restaurar backups.</p>
+  <button onclick="criarBackup()">Criar Backup</button>
+  <p id="msg"></p>
+</div>
 
-  <footer>&copy; 2025 Smart Bite Admin Pro</footer>
+<footer>&copy; 2025 Smart Bite Admin Pro</footer>
 
-  <script>
-  const logado = localStorage.getItem("logado");
-  if (logado !== "true") {
-    window.location.href = "login.html";
+<script>
+const logado = localStorage.getItem("logado");
+if(logado !== "true") window.location.href="login.html";
+
+function sair(){
+  if(confirm("Deseja realmente sair do painel?")){
+    localStorage.removeItem("logado");
+    fetch('backend/logout.php');
+    window.location.href="login.html";
   }
+}
 
-  function sair() {
-    if (confirm("Deseja realmente sair do painel?")) {
-      localStorage.removeItem("logado");
-      window.location.href = "login.html";
-    }
-  }
-  </script>
+function criarBackup(){
+  // Simula backup
+  document.getElementById("msg").innerText = "Backup criado com sucesso!";
+  fetch('backend/save_log.php',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'Criou backup', user:'Admin'})
+  });
+}
+</script>
 </body>
 </html>
