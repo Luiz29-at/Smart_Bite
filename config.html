@@ -1,64 +1,69 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Configurações - Smart Bite Admin Pro</title>
-  <link rel="stylesheet" href="CSS/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configurações - Smart Bite Admin Pro</title>
+<link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-  <nav>
-    <div class="logo">Smart Bite Admin Pro</div>
-    <ul>
-      <li><a href="index.html">Início</a></li>
-      <li><a href="atualizar.html">Atualizar</a></li>
-      <li><a href="backup.html">Backup</a></li>
-      <li><a href="logs.html">Logs</a></li>
-      <li><a href="manutencao.html">Manutenção</a></li>
-      <li><a href="admins.html">Admins</a></li>
-      <li><a href="status.html">Status</a></li>
-      <li><a href="config.html" class="active">Config</a></li>
-    </ul>
-  </nav>
+<nav>
+  <div class="logo">Smart Bite Admin Pro</div>
+  <ul>
+    <li><a href="index.html">Início</a></li>
+    <li><a href="atualizar.html">Atualizar</a></li>
+    <li><a href="backup.html">Backup</a></li>
+    <li><a href="logs.html">Logs</a></li>
+    <li><a href="manutencao.html">Manutenção</a></li>
+    <li><a href="admins.html">Admins</a></li>
+    <li><a href="status.html">Status</a></li>
+    <li><a href="config.html" class="active">Config</a></li>
+  </ul>
+  <button class="logout-btn" onclick="sair()">Sair</button>
+</nav>
 
-  <div class="page-content">
-    <h1>Configurações Gerais</h1>
-    <section>
-      <form>
-        <label for="tema">Tema do Painel:</label>
-        <select id="tema">
-          <option>Escuro (padrão)</option>
-          <option>Claro</option>
-        </select>
+<div class="page-content">
+  <h1>Configurações Gerais</h1>
+  <label for="tema">Tema:</label>
+  <select id="tema">
+    <option>Escuro</option>
+    <option>Claro</option>
+  </select>
+  <label for="notificacoes">Notificações:</label>
+  <select id="notificacoes">
+    <option>Ativadas</option>
+    <option>Desativadas</option>
+  </select>
+  <label for="limite">Limite de Logs (dias):</label>
+  <input type="number" id="limite" value="30" min="1" max="90">
+  <button onclick="salvar()">Salvar Configurações</button>
+  <p id="msg"></p>
+</div>
 
-        <label for="notificacoes">Notificações do Sistema:</label>
-        <select id="notificacoes">
-          <option>Ativadas</option>
-          <option>Desativadas</option>
-        </select>
+<footer>&copy; 2025 Smart Bite Admin Pro</footer>
 
-        <label for="limite">Limite de Logs (dias):</label>
-        <input type="number" id="limite" min="1" max="90" value="30">
+<script>
+const logado = localStorage.getItem("logado");
+if(logado !== "true") window.location.href="login.html";
 
-        <button>Salvar Configurações</button>
-      </form>
-    </section>
-  </div>
-
-  <footer>&copy; 2025 Smart Bite Admin Pro</footer>
-
-  <script>
-  const logado = localStorage.getItem("logado");
-  if (logado !== "true") {
-    window.location.href = "login.html";
+function sair(){
+  if(confirm("Deseja realmente sair do painel?")){
+    localStorage.removeItem("logado");
+    fetch('backend/logout.php');
+    window.location.href="login.html";
   }
+}
 
-  function sair() {
-    if (confirm("Deseja realmente sair do painel?")) {
-      localStorage.removeItem("logado");
-      window.location.href = "login.html";
-    }
-  }
-  </script>
+async function salvar(){
+  const config = {
+    tema: document.getElementById('tema').value,
+    notificacoes: document.getElementById('notificacoes').value,
+    limite_logs: document.getElementById('limite').value
+  };
+  await fetch('backend/config.json', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(config)});
+  fetch('backend/save_log.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'Alterou configurações', user:'Admin'})});
+  document.getElementById('msg').innerText='Configurações salvas!';
+}
+</script>
 </body>
 </html>
