@@ -31,5 +31,19 @@
   </div>
 
   <footer>&copy; 2025 Smart Bite Admin Pro</footer>
+
+  <script>
+  const logado = localStorage.getItem("logado");
+  if (logado !== "true") {
+    window.location.href = "login.html";
+  }
+
+  function sair() {
+    if (confirm("Deseja realmente sair do painel?")) {
+      localStorage.removeItem("logado");
+      window.location.href = "login.html";
+    }
+  }
+  </script>
 </body>
 </html>
