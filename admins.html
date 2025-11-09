@@ -1,51 +1,72 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerenciar Admins - Smart Bite Admin Pro</title>
-  <link rel="stylesheet" href="CSS/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admins - Smart Bite Admin Pro</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <nav>
-    <div class="logo">Smart Bite Admin Pro</div>
-    <ul>
-      <li><a href="index.html">Início</a></li>
-      <li><a href="atualizar.html">Atualizar</a></li>
-      <li><a href="backup.html">Backup</a></li>
-      <li><a href="logs.html">Logs</a></li>
-      <li><a href="manutencao.html">Manutenção</a></li>
-      <li><a href="admins.html" class="active">Admins</a></li>
-      <li><a href="status.html">Status</a></li>
-      <li><a href="config.html">Config</a></li>
-    </ul>
-  </nav>
+<nav>
+  <div class="logo">Smart Bite Admin Pro</div>
+  <ul>
+    <li><a href="index.html">Início</a></li>
+    <li><a href="atualizar.html">Atualizar</a></li>
+    <li><a href="backup.html">Backup</a></li>
+    <li><a href="logs.html">Logs</a></li>
+    <li><a href="manutencao.html">Manutenção</a></li>
+    <li><a href="admins.html" class="active">Admins</a></li>
+    <li><a href="status.html">Status</a></li>
+    <li><a href="config.html">Config</a></li>
+  </ul>
+  <button class="logout-btn" onclick="sair()">Sair</button>
+</nav>
 
-  <div class="page-content">
-    <h1>Gerenciar Administradores</h1>
-    <section>
-      <form>
-        <input type="text" placeholder="Nome do novo admin">
-        <input type="email" placeholder="Email">
-        <button>Adicionar Admin</button>
-      </form>
-    </section>
-  </div>
+<div class="page-content">
+  <h1>Cadastro de Restaurantes/Admins</h1>
+  <p>Adicione novos usuários ou restaurantes:</p>
+  <input type="text" id="nome" placeholder="Nome do Restaurante/Admin">
+  <button onclick="adicionar()">Adicionar</button>
+  <ul id="listaAdmins"></ul>
+</div>
 
-  <footer>&copy; 2025 Smart Bite Admin Pro</footer>
+<footer>&copy; 2025 Smart Bite Admin Pro</footer>
+
 <script>
-  const logado = localStorage.getItem("logado");
-  if (logado !== "true") {
-    window.location.href = "login.html";
-  }
+const logado = localStorage.getItem("logado");
+if(logado !== "true") window.location.href="login.html";
 
-  function sair() {
-    if (confirm("Deseja realmente sair do painel?")) {
-      localStorage.removeItem("logado");
-      window.location.href = "login.html";
-    }
+function sair(){
+  if(confirm("Deseja realmente sair do painel?")){
+    localStorage.removeItem("logado");
+    fetch('backend/logout.php');
+    window.location.href="login.html";
   }
+}
+
+async function carregarAdmins(){
+  const res = await fetch('backend/restaurants.json');
+  const admins = await res.json();
+  const lista = document.getElementById("listaAdmins");
+  lista.innerHTML='';
+  admins.forEach(item=>{
+    const li=document.createElement('li');
+    li.innerText=item.nome;
+    lista.appendChild(li);
+  });
+}
+async function adicionar(){
+  const nome=document.getElementById('nome').value;
+  if(!nome) return alert('Digite um nome');
+  const res = await fetch('backend/restaurants.json');
+  const admins = await res.json();
+  admins.push({nome});
+  await fetch('backend/restaurants.json', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(admins)});
+  fetch('backend/save_log.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:`Adicionou ${nome}`, user:'Admin'})});
+  document.getElementById('nome').value='';
+  carregarAdmins();
+}
+carregarAdmins();
 </script>
-  
 </body>
 </html>
