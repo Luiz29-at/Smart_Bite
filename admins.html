@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Admins - Smart Bite</title><link rel="stylesheet" href="CSS/style.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerenciar Admins - Smart Bite Admin Pro</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
-  <aside class="sidebar"><h2>⚙️ Painel</h2>
+  <nav>
+    <div class="logo">Smart Bite Admin Pro</div>
     <ul>
       <li><a href="index.html">Início</a></li>
       <li><a href="atualizar.html">Atualizar</a></li>
       <li><a href="backup.html">Backup</a></li>
       <li><a href="logs.html">Logs</a></li>
       <li><a href="manutencao.html">Manutenção</a></li>
+      <li><a href="admins.html" class="active">Admins</a></li>
       <li><a href="status.html">Status</a></li>
-      <li><a href="config.html">Configurações</a></li>
+      <li><a href="config.html">Config</a></li>
     </ul>
-  </aside>
-  <main class="js/main.js">
-    <h1>Gerenciar Admins</h1>
-    <form id="formAdmin">
-      <input type="text" name="nome" placeholder="Nome">
-      <input type="email" name="email" placeholder="Email">
-      <button type="submit">Adicionar Admin</button>
-    </form>
-  </main>
+  </nav>
+
+  <div class="page-content">
+    <h1>Gerenciar Administradores</h1>
+    <section>
+      <form>
+        <input type="text" placeholder="Nome do novo admin">
+        <input type="email" placeholder="Email">
+        <button>Adicionar Admin</button>
+      </form>
+    </section>
+  </div>
+
+  <footer>&copy; 2025 Smart Bite Admin Pro</footer>
 </body>
 </html>
