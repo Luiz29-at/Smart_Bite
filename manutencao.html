@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Modo Manutenção - Smart Bite</title><link rel="stylesheet" href="CSS/style.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modo Manutenção - Smart Bite Admin Pro</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
-  <aside class="sidebar"><h2>⚙️ Painel</h2>
+  <nav>
+    <div class="logo">Smart Bite Admin Pro</div>
     <ul>
       <li><a href="index.html">Início</a></li>
       <li><a href="atualizar.html">Atualizar</a></li>
       <li><a href="backup.html">Backup</a></li>
       <li><a href="logs.html">Logs</a></li>
+      <li><a href="manutencao.html" class="active">Manutenção</a></li>
       <li><a href="admins.html">Admins</a></li>
       <li><a href="status.html">Status</a></li>
-      <li><a href="config.html">Configurações</a></li>
+      <li><a href="config.html">Config</a></li>
     </ul>
-  </aside>
-  <main class="js/main.js">
-    <h1>Modo Manutenção</h1>
-    <form id="formManutencao">
-      <label><input type="checkbox" name="ativo"> Ativar modo manutenção</label>
-      <button type="submit">Salvar</button>
-    </form>
-  </main>
+  </nav>
+
+  <div class="page-content">
+    <h1>Modo de Manutenção</h1>
+    <section>
+      <p>Ative ou desative o modo de manutenção do sistema.</p>
+      <button>Ativar Modo Manutenção</button>
+      <button style="background:#e53935;">Desativar</button>
+    </section>
+  </div>
+
+  <footer>&copy; 2025 Smart Bite Admin Pro</footer>
 </body>
 </html>
