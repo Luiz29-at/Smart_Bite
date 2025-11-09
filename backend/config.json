@@ -1,5 +1,5 @@
 {
-    "tema": "escuro",
-    "notificacoes": "ativadas",
-    "limite_logs": 30
+  "tema": "escuro",
+  "notificacoes": "ativadas",
+  "limite_logs": 30
 }
