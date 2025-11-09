@@ -1,49 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modo Manutenção - Smart Bite Admin Pro</title>
-  <link rel="stylesheet" href="CSS/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manutenção - Smart Bite Admin Pro</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <nav>
-    <div class="logo">Smart Bite Admin Pro</div>
-    <ul>
-      <li><a href="index.html">Início</a></li>
-      <li><a href="atualizar.html">Atualizar</a></li>
-      <li><a href="backup.html">Backup</a></li>
-      <li><a href="logs.html">Logs</a></li>
-      <li><a href="manutencao.html" class="active">Manutenção</a></li>
-      <li><a href="admins.html">Admins</a></li>
-      <li><a href="status.html">Status</a></li>
-      <li><a href="config.html">Config</a></li>
-    </ul>
-  </nav>
+<nav>
+  <div class="logo">Smart Bite Admin Pro</div>
+  <ul>
+    <li><a href="index.html">Início</a></li>
+    <li><a href="atualizar.html">Atualizar</a></li>
+    <li><a href="backup.html">Backup</a></li>
+    <li><a href="logs.html">Logs</a></li>
+    <li><a href="manutencao.html" class="active">Manutenção</a></li>
+    <li><a href="admins.html">Admins</a></li>
+    <li><a href="status.html">Status</a></li>
+    <li><a href="config.html">Config</a></li>
+  </ul>
+  <button class="logout-btn" onclick="sair()">Sair</button>
+</nav>
 
-  <div class="page-content">
-    <h1>Modo de Manutenção</h1>
-    <section>
-      <p>Ative ou desative o modo de manutenção do sistema.</p>
-      <button>Ativar Modo Manutenção</button>
-      <button style="background:#e53935;">Desativar</button>
-    </section>
-  </div>
+<div class="page-content">
+  <h1>Modo de Manutenção</h1>
+  <p>Ative ou desative a manutenção do sistema:</p>
+  <button onclick="ativar()">Ativar</button>
+  <button onclick="desativar()">Desativar</button>
+  <p id="statusManutencao"></p>
+</div>
 
-  <footer>&copy; 2025 Smart Bite Admin Pro</footer>
+<footer>&copy; 2025 Smart Bite Admin Pro</footer>
 
-  <script>
-  const logado = localStorage.getItem("logado");
-  if (logado !== "true") {
-    window.location.href = "login.html";
+<script>
+const logado = localStorage.getItem("logado");
+if(logado !== "true") window.location.href="login.html";
+
+function sair(){
+  if(confirm("Deseja realmente sair do painel?")){
+    localStorage.removeItem("logado");
+    fetch('backend/logout.php');
+    window.location.href="login.html";
   }
+}
 
-  function sair() {
-    if (confirm("Deseja realmente sair do painel?")) {
-      localStorage.removeItem("logado");
-      window.location.href = "login.html";
-    }
-  }
-  </script>
+function ativar(){
+  document.getElementById("statusManutencao").innerText="Sistema em manutenção!";
+  fetch('backend/save_log.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'Ativou manutenção', user:'Admin'})});
+}
+function desativar(){
+  document.getElementById("statusManutencao").innerText="Sistema ativo!";
+  fetch('backend/save_log.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'Desativou manutenção', user:'Admin'})});
+}
+</script>
 </body>
 </html>
