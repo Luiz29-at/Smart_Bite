@@ -1,9 +1,8 @@
 /* ===============================
    SMART BITE ADMIN PRO - Global CSS
-   Tema: Escuro profissional
+   Tema: Escuro profissional e responsivo
    =============================== */
 
-/* Fonte e cores */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 :root {
@@ -44,6 +43,7 @@ nav {
   top: 0;
   z-index: 100;
   box-shadow: var(--shadow);
+  border-bottom: 1px solid var(--border-color);
 }
 
 nav .logo {
@@ -56,6 +56,7 @@ nav ul {
   display: flex;
   gap: 20px;
   list-style: none;
+  flex-wrap: wrap;
 }
 
 nav ul li a {
@@ -70,13 +71,19 @@ nav ul li a.active {
   color: var(--accent);
 }
 
-/* ===== MAIN CONTENT ===== */
-main {
+/* ===== CONTEÚDO ===== */
+.page-content {
   flex: 1;
   padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 h1 {
@@ -84,6 +91,7 @@ h1 {
   font-size: 1.8rem;
 }
 
+/* ===== SEÇÕES E CARDS ===== */
 section {
   background: var(--bg-card);
   border-radius: var(--radius);
@@ -92,7 +100,6 @@ section {
   border: 1px solid var(--border-color);
 }
 
-/* ===== CARDS ===== */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -114,7 +121,7 @@ section {
   border-color: var(--accent);
 }
 
-/* ===== BUTTONS ===== */
+/* ===== BOTÕES ===== */
 button {
   background: var(--accent);
   border: none;
@@ -130,7 +137,7 @@ button:hover {
   background: var(--accent-hover);
 }
 
-/* ===== FORMS ===== */
+/* ===== FORMULÁRIOS ===== */
 form {
   display: flex;
   flex-direction: column;
@@ -151,7 +158,7 @@ input:focus, textarea:focus, select:focus {
   outline: none;
 }
 
-/* ===== FOOTER ===== */
+/* ===== RODAPÉ ===== */
 footer {
   text-align: center;
   padding: 20px;
@@ -161,7 +168,7 @@ footer {
   border-top: 1px solid var(--border-color);
 }
 
-/* ===== RESPONSIVE ===== */
+/* ===== RESPONSIVIDADE ===== */
 @media (max-width: 768px) {
   nav {
     flex-direction: column;
@@ -169,11 +176,10 @@ footer {
   }
 
   nav ul {
-    flex-wrap: wrap;
     gap: 10px;
   }
 
-  main {
+  .page-content {
     padding: 20px;
   }
 
