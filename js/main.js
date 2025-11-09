@@ -1,8 +1,8 @@
 const senhaCorreta = "LcD2025@";
+
 function login() {
   const senha = document.getElementById("password").value;
   const erro = document.getElementById("login-error");
-
   if (senha === senhaCorreta) {
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("dashboard").classList.remove("hidden");
