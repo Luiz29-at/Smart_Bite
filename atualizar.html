@@ -1,52 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atualizações - Smart Bite Admin Pro</title>
-  <link rel="stylesheet" href="CSS/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atualizar - Smart Bite Admin Pro</title>
+<link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-  <nav>
-    <div class="logo">Smart Bite Admin Pro</div>
-    <ul>
-      <li><a href="index.html">Início</a></li>
-      <li><a href="atualizar.html" class="active">Atualizar</a></li>
-      <li><a href="backup.html">Backup</a></li>
-      <li><a href="logs.html">Logs</a></li>
-      <li><a href="manutencao.html">Manutenção</a></li>
-      <li><a href="admins.html">Admins</a></li>
-      <li><a href="status.html">Status</a></li>
-      <li><a href="config.html">Config</a></li>
-    </ul>
-  </nav>
+<nav>
+  <div class="logo">Smart Bite Admin Pro</div>
+  <ul>
+    <li><a href="index.html">Início</a></li>
+    <li><a href="atualizar.html" class="active">Atualizar</a></li>
+    <li><a href="backup.html">Backup</a></li>
+    <li><a href="logs.html">Logs</a></li>
+    <li><a href="manutencao.html">Manutenção</a></li>
+    <li><a href="admins.html">Admins</a></li>
+    <li><a href="status.html">Status</a></li>
+    <li><a href="config.html">Config</a></li>
+  </ul>
+  <button class="logout-btn" onclick="sair()">Sair</button>
+</nav>
 
-  <div class="page-content">
-    <h1>Atualizar Sistema</h1>
-    <section>
-      <p>Carregue uma nova versão do sistema para atualizar o Smart Bite.</p>
-      <form>
-        <label for="arquivo">Selecione o arquivo de atualização (.zip)</label>
-        <input type="file" id="arquivo" name="arquivo" accept=".zip">
-        <button type="submit">Atualizar Agora</button>
-      </form>
-    </section>
-  </div>
+<div class="page-content">
+  <h1>Atualizar Sistema</h1>
+  <p>Clique no botão abaixo para atualizar o Smart Bite para a última versão.</p>
+  <button onclick="atualizar()">Atualizar Agora</button>
+  <p id="resultado"></p>
+</div>
 
-  <footer>&copy; 2025 Smart Bite Admin Pro</footer>
+<footer>&copy; 2025 Smart Bite Admin Pro</footer>
 
-  <script>
-  const logado = localStorage.getItem("logado");
-  if (logado !== "true") {
-    window.location.href = "login.html";
+<script>
+const logado = localStorage.getItem("logado");
+if(logado !== "true") window.location.href="login.html";
+
+function sair(){
+  if(confirm("Deseja realmente sair do painel?")){
+    localStorage.removeItem("logado");
+    fetch('backend/logout.php');
+    window.location.href="login.html";
   }
+}
 
-  function sair() {
-    if (confirm("Deseja realmente sair do painel?")) {
-      localStorage.removeItem("logado");
-      window.location.href = "login.html";
-    }
-  }
-  </script>
+async function atualizar(){
+  const res = await fetch('backend/update_system.php');
+  const data = await res.json();
+  document.getElementById("resultado").innerText = data.message;
+  // registra log
+  fetch('backend/save_log.php',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'Atualizou o sistema', user:'Admin'})
+  });
+}
+</script>
 </body>
 </html>
