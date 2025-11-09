@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Status - Smart Bite</title><link rel="stylesheet" href="CSS/style.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Status do Sistema - Smart Bite Admin Pro</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
-  <aside class="sidebar"><h2>⚙️ Painel</h2>
+  <nav>
+    <div class="logo">Smart Bite Admin Pro</div>
     <ul>
       <li><a href="index.html">Início</a></li>
       <li><a href="atualizar.html">Atualizar</a></li>
@@ -10,12 +16,33 @@
       <li><a href="logs.html">Logs</a></li>
       <li><a href="manutencao.html">Manutenção</a></li>
       <li><a href="admins.html">Admins</a></li>
-      <li><a href="config.html">Configurações</a></li>
+      <li><a href="status.html" class="active">Status</a></li>
+      <li><a href="config.html">Config</a></li>
     </ul>
-  </aside>
-  <main class="js/main.js">
-    <h1>Status do Servidor</h1>
-    <div id="statusContainer"></div>
-  </main>
+  </nav>
+
+  <div class="page-content">
+    <h1>Status do Sistema</h1>
+    <section class="card-grid">
+      <div class="card">
+        <h3>Servidor</h3>
+        <p>Status: <span class="status online">Online</span></p>
+      </div>
+      <div class="card">
+        <h3>Banco de Dados</h3>
+        <p>Status: <span class="status online">Conectado</span></p>
+      </div>
+      <div class="card">
+        <h3>Último Backup</h3>
+        <p>08/11/2025 - 23:45</p>
+      </div>
+      <div class="card">
+        <h3>Versão do Sistema</h3>
+        <p>v2.0.0</p>
+      </div>
+    </section>
+  </div>
+
+  <footer>&copy; 2025 Smart Bite Admin Pro</footer>
 </body>
 </html>
