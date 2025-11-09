@@ -3,30 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atualizar Sistema - Smart Bite</title>
-  <link rel="stylesheet" href="CSS/style.css">
+  <title>Atualizações - Smart Bite Admin Pro</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <aside class="sidebar">
-    <h2>⚙️ Painel</h2>
+  <nav>
+    <div class="logo">Smart Bite Admin Pro</div>
     <ul>
       <li><a href="index.html">Início</a></li>
+      <li><a href="atualizar.html" class="active">Atualizar</a></li>
       <li><a href="backup.html">Backup</a></li>
       <li><a href="logs.html">Logs</a></li>
       <li><a href="manutencao.html">Manutenção</a></li>
       <li><a href="admins.html">Admins</a></li>
       <li><a href="status.html">Status</a></li>
-      <li><a href="config.html">Configurações</a></li>
+      <li><a href="config.html">Config</a></li>
     </ul>
-  </aside>
+  </nav>
 
-  <main class="js/main.js">
+  <div class="page-content">
     <h1>Atualizar Sistema</h1>
-    <form id="formAtualizar">
-      <label>Arquivo de atualização:</label>
-      <input type="file" name="updateFile">
-      <button type="submit">Enviar atualização</button>
-    </form>
-  </main>
+    <section>
+      <p>Carregue uma nova versão do sistema para atualizar o Smart Bite.</p>
+      <form>
+        <label for="arquivo">Selecione o arquivo de atualização (.zip)</label>
+        <input type="file" id="arquivo" name="arquivo" accept=".zip">
+        <button type="submit">Atualizar Agora</button>
+      </form>
+    </section>
+  </div>
+
+  <footer>&copy; 2025 Smart Bite Admin Pro</footer>
 </body>
 </html>
