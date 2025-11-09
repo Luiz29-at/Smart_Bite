@@ -3,38 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Bite Admin</title>
-  <link rel="stylesheet" href="CSS/style.css">
+  <title>Smart Bite Admin Pro</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="login-screen">
-    <div class="login-box">
-      <h1>Smart Bite Admin</h1>
-      <input type="password" id="password" placeholder="Digite a senha">
-      <button onclick="login()">Entrar</button>
-      <p id="login-error"></p>
-    </div>
+  <!-- ===== NAVBAR ===== -->
+  <nav>
+    <div class="logo">Smart Bite Admin Pro</div>
+    <ul>
+      <li><a href="index.html" class="active">Início</a></li>
+      <li><a href="atualizar.html">Atualizar</a></li>
+      <li><a href="backup.html">Backup</a></li>
+      <li><a href="logs.html">Logs</a></li>
+      <li><a href="manutencao.html">Manutenção</a></li>
+      <li><a href="admins.html">Admins</a></li>
+      <li><a href="status.html">Status</a></li>
+      <li><a href="config.html">Config</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
+  <div class="page-content">
+    <h1>Bem-vindo ao Painel do Criador</h1>
+    <section>
+      <p>Gerencie atualizações, segurança e configurações globais do Smart Bite aqui.</p>
+    </section>
+
+    <section class="card-grid">
+      <div class="card">
+        <h3>Atualizações</h3>
+        <p>Verifique e aplique novas versões do sistema.</p>
+        <button onclick="location.href='atualizar.html'">Abrir</button>
+      </div>
+
+      <div class="card">
+        <h3>Backups</h3>
+        <p>Crie e restaure backups do sistema rapidamente.</p>
+        <button onclick="location.href='backup.html'">Abrir</button>
+      </div>
+
+      <div class="card">
+        <h3>Logs</h3>
+        <p>Veja registros e auditorias do sistema.</p>
+        <button onclick="location.href='logs.html'">Abrir</button>
+      </div>
+
+      <div class="card">
+        <h3>Modo Manutenção</h3>
+        <p>Ative ou desative o modo de manutenção.</p>
+        <button onclick="location.href='manutencao.html'">Abrir</button>
+      </div>
+    </section>
   </div>
 
-  <div id="dashboard" class="hidden">
-    <aside class="sidebar">
-      <h2>⚙️ Painel</h2>
-      <ul>
-        <li><a href="atualizar.html">Atualizar Sistema</a></li>
-        <li><a href="backup.html">Backup</a></li>
-        <li><a href="logs.html">Logs</a></li>
-        <li><a href="manutencao.html">Modo Manutenção</a></li>
-        <li><a href="admins.html">Gerenciar Admins</a></li>
-        <li><a href="status.html">Status do Servidor</a></li>
-        <li><a href="config.html">Configurações</a></li>
-      </ul>
-    </aside>
-
-    <main class="js/main.js">
-      <h1>Bem-vindo, Criador 👑</h1>
-      <p>Escolha uma das opções no menu lateral para começar.</p>
-    </main>
-  </div>
+  <!-- ===== RODAPÉ ===== -->
+  <footer>
+    &copy; 2025 Smart Bite Admin Pro | Criado por você 🚀
+  </footer>
 
   <script src="js/main.js"></script>
 </body>
