@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Bite - Painel do Criador</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Tela de Login -->
+  <div id="login-screen">
+    <div class="login-box">
+      <h1>Smart Bite Admin</h1>
+      <input type="password" id="password" placeholder="Digite a senha">
+      <button onclick="login()">Entrar</button>
+      <p id="login-error"></p>
+    </div>
+  </div>
+
+  <!-- Painel Principal -->
+  <div id="dashboard" class="hidden">
+    <aside class="sidebar">
+      <h2>⚙️ Painel</h2>
+      <ul>
+        <li onclick="showSection('atualizar')">Atualizar Sistema</li>
+        <li onclick="showSection('backup')">Backup</li>
+        <li onclick="showSection('logs')">Logs</li>
+        <li onclick="showSection('manutencao')">Modo Manutenção</li>
+        <li onclick="showSection('admins')">Gerenciar Admins</li>
+        <li onclick="showSection('status')">Status do Servidor</li>
+        <li onclick="showSection('config')">Configurações</li>
+      </ul>
+    </aside>
+
+    <main class="main">
+      <h1 id="section-title">Bem-vindo, Criador 👑</h1>
+      <div id="section-content">
+        <p>Selecione uma função no menu ao lado para começar.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
