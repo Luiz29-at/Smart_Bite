@@ -1,13 +1,115 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Bite Admin Pro</title>
-  <link rel="stylesheet" href="CSS/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel - Smart Bite Admin Pro</title>
+  <link rel="stylesheet" href="CSS/style.css" />
+  <style>
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #121212;
+      padding: 12px 24px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav .logo {
+      font-weight: bold;
+      color: #00bcd4;
+      font-size: 1.3em;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 18px;
+      list-style: none;
+    }
+
+    nav ul li a {
+      color: #ccc;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: #00bcd4;
+    }
+
+    .logout-btn {
+      background: #e53935;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #b71c1c;
+    }
+
+    .page-content {
+      padding: 100px 20px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .card {
+      background: #1f1f2e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(0, 188, 212, 0.3);
+    }
+
+    .card h3 {
+      color: #00bcd4;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      color: #888;
+      font-size: 0.9em;
+      padding: 30px 0;
+      border-top: 1px solid #222;
+      background: #0d0d0d;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .logout-btn {
+        margin-top: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- ===== NAVBAR ===== -->
   <nav>
     <div class="logo">Smart Bite Admin Pro</div>
     <ul>
@@ -20,47 +122,53 @@
       <li><a href="status.html">Status</a></li>
       <li><a href="config.html">Config</a></li>
     </ul>
+    <button class="logout-btn" onclick="sair()">Sair</button>
   </nav>
 
-  <!-- ===== CONTEÚDO PRINCIPAL ===== -->
   <div class="page-content">
-    <h1>Bem-vindo ao Painel do Criador</h1>
-    <section>
-      <p>Gerencie atualizações, segurança e configurações globais do Smart Bite aqui.</p>
-    </section>
+    <h1>Bem-vindo ao Painel Administrativo</h1>
+    <p>Gerencie o Smart Bite de forma centralizada e segura.</p>
 
     <section class="card-grid">
       <div class="card">
         <h3>Atualizações</h3>
-        <p>Verifique e aplique novas versões do sistema.</p>
-        <button onclick="location.href='atualizar.html'">Abrir</button>
+        <p>Mantenha o sistema sempre na última versão.</p>
+        <a href="atualizar.html"><button>Ver mais</button></a>
       </div>
-
       <div class="card">
         <h3>Backups</h3>
-        <p>Crie e restaure backups do sistema rapidamente.</p>
-        <button onclick="location.href='backup.html'">Abrir</button>
+        <p>Crie e restaure cópias de segurança.</p>
+        <a href="backup.html"><button>Ver mais</button></a>
       </div>
-
       <div class="card">
         <h3>Logs</h3>
-        <p>Veja registros e auditorias do sistema.</p>
-        <button onclick="location.href='logs.html'">Abrir</button>
+        <p>Acompanhe o histórico de atividades.</p>
+        <a href="logs.html"><button>Ver mais</button></a>
       </div>
-
       <div class="card">
-        <h3>Modo Manutenção</h3>
-        <p>Ative ou desative o modo de manutenção.</p>
-        <button onclick="location.href='manutencao.html'">Abrir</button>
+        <h3>Manutenção</h3>
+        <p>Gerencie o modo de manutenção e alertas.</p>
+        <a href="manutencao.html"><button>Ver mais</button></a>
       </div>
     </section>
   </div>
 
-  <!-- ===== RODAPÉ ===== -->
-  <footer>
-    &copy; 2025 Smart Bite Admin Pro | Criado KaluluOfih 🚀
-  </footer>
+  <footer>&copy; 2025 Smart Bite Admin Pro</footer>
 
-  <script src="js/main.js"></script>
+  <script>
+    // ✅ Verificação de login
+    const logado = localStorage.getItem("logado");
+    if (logado !== "true") {
+      window.location.href = "login.html";
+    }
+
+    // 🚪 Função de logout
+    function sair() {
+      if (confirm("Deseja realmente sair do painel?")) {
+        localStorage.removeItem("logado");
+        window.location.href = "login.html";
+      }
+    }
+  </script>
 </body>
 </html>
