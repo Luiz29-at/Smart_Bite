@@ -1,48 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logs - Smart Bite Admin Pro</title>
-  <link rel="stylesheet" href="CSS/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logs - Smart Bite Admin Pro</title>
+<link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-  <nav>
-    <div class="logo">Smart Bite Admin Pro</div>
-    <ul>
-      <li><a href="index.html">Início</a></li>
-      <li><a href="atualizar.html">Atualizar</a></li>
-      <li><a href="backup.html">Backup</a></li>
-      <li><a href="logs.html" class="active">Logs</a></li>
-      <li><a href="manutencao.html">Manutenção</a></li>
-      <li><a href="admins.html">Admins</a></li>
-      <li><a href="status.html">Status</a></li>
-      <li><a href="config.html">Config</a></li>
-    </ul>
-  </nav>
+<nav>
+  <div class="logo">Smart Bite Admin Pro</div>
+  <ul>
+    <li><a href="index.html">Início</a></li>
+    <li><a href="atualizar.html">Atualizar</a></li>
+    <li><a href="backup.html">Backup</a></li>
+    <li><a href="logs.html" class="active">Logs</a></li>
+    <li><a href="manutencao.html">Manutenção</a></li>
+    <li><a href="admins.html">Admins</a></li>
+    <li><a href="status.html">Status</a></li>
+    <li><a href="config.html">Config</a></li>
+  </ul>
+  <button class="logout-btn" onclick="sair()">Sair</button>
+</nav>
 
-  <div class="page-content">
-    <h1>Logs do Sistema</h1>
-    <section>
-      <p>Histórico de ações e eventos do Smart Bite.</p>
-      <textarea rows="12" readonly>Logs aparecerão aqui...</textarea>
-    </section>
-  </div>
+<div class="page-content">
+  <h1>Logs do Sistema</h1>
+  <ul id="listaLogs"></ul>
+</div>
 
-  <footer>&copy; 2025 Smart Bite Admin Pro</footer>
+<footer>&copy; 2025 Smart Bite Admin Pro</footer>
 
-  <script>
-  const logado = localStorage.getItem("logado");
-  if (logado !== "true") {
-    window.location.href = "login.html";
+<script>
+const logado = localStorage.getItem("logado");
+if(logado !== "true") window.location.href="login.html";
+
+function sair(){
+  if(confirm("Deseja realmente sair do painel?")){
+    localStorage.removeItem("logado");
+    fetch('backend/logout.php');
+    window.location.href="login.html";
   }
+}
 
-  function sair() {
-    if (confirm("Deseja realmente sair do painel?")) {
-      localStorage.removeItem("logado");
-      window.location.href = "login.html";
-    }
-  }
-  </script>
+// buscar logs
+async function carregarLogs(){
+  const res = await fetch('backend/logs.json');
+  const logs = await res.json();
+  const lista = document.getElementById("listaLogs");
+  lista.innerHTML = '';
+  logs.forEach(log=>{
+    const li = document.createElement('li');
+    li.innerText = `[${log.time}] ${log.user}: ${log.action}`;
+    lista.appendChild(li);
+  });
+}
+
+carregarLogs();
+</script>
 </body>
 </html>
